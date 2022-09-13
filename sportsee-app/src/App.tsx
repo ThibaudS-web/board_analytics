@@ -23,6 +23,7 @@ const GlobalStyles = createGlobalStyle`
     }
 `
 function App() {
+
     return (
         <React.Fragment>
             <GlobalStyles />

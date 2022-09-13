@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Meditation from '../components/ui/Meditation'
-import Bike from '../components/ui/Bike'
-import Swim from '../components/ui/Swim'
-import BodyBuilding from '../components/ui/Bodybuilding'
+import Meditation from '../components/Icons/Meditation'
+import Bike from '../components/Icons/Bike'
+import Swim from '../components/Icons/Swim'
+import BodyBuilding from '../components/Icons/Bodybuilding'
 
 const SidebarWrapper = styled.div`
     height: 100vh;
@@ -32,6 +32,7 @@ const Copyright = styled.p`
     transform: rotate(180deg);
     align-self: center;
 `
+
 function Sidebar() {
     const iconsList = [<Meditation />, <Bike />, <Swim />, <BodyBuilding />]
 
