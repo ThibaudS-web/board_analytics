@@ -46,29 +46,29 @@ export class KeyData {
 }
 
 export class UserMainDataWrapper {
-    private usermainData: UserMainData | null
-    constructor(usermainData: UserMainData | null) {
+    private usermainData: UserMainData
+    constructor(usermainData: UserMainData) {
         this.usermainData = usermainData
     }
 
     getPercentage() {
-        const score = this.usermainData?.todayScore ?? 0
+        const score = this.usermainData?.todayScore
         return score * 100
     }
 
     getKcalories() {
-        return `${this.usermainData?.keyData?.calorieCount || 0} Kcal`
+        return `${this.usermainData?.keyData?.calorieCount} Kcal`
     }
 
     getProteins() {
-        return `${this.usermainData?.keyData?.proteinCount || 0} g`
+        return `${this.usermainData?.keyData?.proteinCount} g`
     }
 
     getCarbohydrates() {
-        return `${this.usermainData?.keyData?.carbohydrateCount || 0} g`
+        return `${this.usermainData?.keyData?.carbohydrateCount} g`
     }
 
     getLipids() {
-        return `${this.usermainData?.keyData.lipidCount || 0} g`
+        return `${this.usermainData?.keyData.lipidCount} g`
     }
 }

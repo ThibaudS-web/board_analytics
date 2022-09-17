@@ -12,11 +12,11 @@ import { PerformanceRadarCharData } from '../models/user-performance/UserPerform
 import { SessionTimeWrapper } from '../models/UserAverageSession'
 
 import fetchData from '../services/clientAPI'
+
 import Barchart from '../components/barchart/Barchart'
 import Linechart from '../components/linechart/Linechart'
 import Radarchart from '../components/radarchart'
 import Radialbarchart from '../components/Radialbarchart'
-
 import NutrientCount from '../components/nutrients/NutrientScore'
 
 const ProfilWrapper = styled.div`
@@ -33,7 +33,7 @@ const Congrat = styled.p`
     margin-bottom: 70px;
 `
 const ChartWrapper = styled.div`
-    width: 75%;
+    width: 68%;
     display: flex;
     flex-wrap: wrap;
 `
@@ -44,16 +44,15 @@ const ChartWrapperSmallGraphs = styled.div`
     justify-content: space-between;
 `
 const NutrientCountWrapper = styled.div`
-    width: 20%;
+    width: 21%;
     display: flex;
     flex-direction: column;
-    margin-right: 30px;
     justify-content: space-between;
 `
 const UserStatSection = styled.div`
     display: flex;
-    justify-content: space-between;
     width: 100%;
+    gap: 30px;
 `
 
 function Dashboard() {
@@ -62,6 +61,10 @@ function Dashboard() {
     const mapper = new UserPerformanceAPIMapper(dataPerformanceMapper)
 
     const [activityLoaded, setActivityLoaded] = useState(false)
+    const [mainDataLoaded, setMainDataLoaded] = useState(false)
+    const [userPerformanceLoaded, setUserPerformanceLoaded] = useState(false)
+    const [userAverageSessionLoaded, setUserAverageSessionLoaded] =
+        useState(false)
 
     const [userMainData, setUserMainData] = useState<UserMainData | null>(null)
     const [userPerformanceData, setUserPerformanceData] = useState<
@@ -76,6 +79,7 @@ function Dashboard() {
             try {
                 const data: UserMainData = await fetchData.getUserMainData()
                 setUserMainData(data)
+                setMainDataLoaded(true)
             } catch (err) {
                 console.log(err)
             }
@@ -90,6 +94,7 @@ function Dashboard() {
                     mapper.mapAPI(data)
                 )
                 setUserPerformanceData(userPerformance.getRadarChartData())
+                setUserPerformanceLoaded(true)
             } catch (err) {
                 console.log(err)
             }
@@ -110,6 +115,7 @@ function Dashboard() {
                 const data: UserAverageSessions =
                     await fetchData.getUserAverageSession()
                 setUserAverageSession(data)
+                setUserAverageSessionLoaded(true)
             } catch (err) {
                 console.log(err)
             }
@@ -133,7 +139,9 @@ function Dashboard() {
             (session) => new SessionTimeWrapper(session)
         ) ?? []
 
-    const mainDataWrapper = new UserMainDataWrapper(userMainData)
+    const mainDataWrapper = userMainData
+        ? new UserMainDataWrapper(userMainData)
+        : null
 
     return (
         <>
@@ -147,37 +155,54 @@ function Dashboard() {
                 </Congrat>
                 <UserStatSection>
                     <ChartWrapper>
-                        {activityLoaded && (
+                        {activityLoaded ? (
                             <Barchart sessions={sessionWrappers} />
+                        ) : (
+                            'Loading ...'
                         )}
                         <ChartWrapperSmallGraphs>
-                            <Linechart
-                                sessionsAverage={sessionAverageWrapper}
-                            />
-                            <Radarchart
-                                performance={userPerformanceData ?? []}
-                            />
-                            <Radialbarchart
-                                score={mainDataWrapper.getPercentage()}
-                            />
+                            {userAverageSessionLoaded ? (
+                                <Linechart
+                                    sessionsAverage={sessionAverageWrapper}
+                                />
+                            ) : (
+                                'Loading ...'
+                            )}
+
+                            {userPerformanceLoaded ? (
+                                <Radarchart
+                                    performance={userPerformanceData ?? []}
+                                />
+                            ) : (
+                                'Loading ...'
+                            )}
+                            {mainDataLoaded ? (
+                                <Radialbarchart
+                                    score={
+                                        mainDataWrapper?.getPercentage() ?? 0
+                                    }
+                                />
+                            ) : (
+                                'Loading ...'
+                            )}
                         </ChartWrapperSmallGraphs>
                     </ChartWrapper>
                     <NutrientCountWrapper>
                         <NutrientCount
                             type="calorie"
-                            count={mainDataWrapper.getKcalories()}
+                            count={mainDataWrapper?.getKcalories() ?? '0'}
                         />
                         <NutrientCount
                             type="protein"
-                            count={mainDataWrapper.getProteins()}
+                            count={mainDataWrapper?.getProteins() ?? '0'}
                         />
                         <NutrientCount
                             type="carbohydrate"
-                            count={mainDataWrapper.getCarbohydrates()}
+                            count={mainDataWrapper?.getCarbohydrates() ?? '0'}
                         />
                         <NutrientCount
                             type="lipid"
-                            count={mainDataWrapper.getLipids()}
+                            count={mainDataWrapper?.getLipids() ?? '0'}
                         />
                     </NutrientCountWrapper>
                 </UserStatSection>
