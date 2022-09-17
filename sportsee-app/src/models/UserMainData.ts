@@ -16,7 +16,7 @@ export class UserMainData {
     }
 }
 
-class UserInfos {
+export class UserInfos {
     firstName: string
     lastName: string
     age: number
@@ -27,7 +27,7 @@ class UserInfos {
     }
 }
 
-class KeyData {
+export class KeyData {
     calorieCount: number
     proteinCount: number
     carbohydrateCount: number
@@ -54,5 +54,21 @@ export class UserMainDataWrapper {
     getPercentage() {
         const score = this.usermainData?.todayScore ?? 0
         return score * 100
+    }
+
+    getKcalories() {
+        return `${this.usermainData?.keyData?.calorieCount || 0} Kcal`
+    }
+
+    getProteins() {
+        return `${this.usermainData?.keyData?.proteinCount || 0} g`
+    }
+
+    getCarbohydrates() {
+        return `${this.usermainData?.keyData?.carbohydrateCount || 0} g`
+    }
+
+    getLipids() {
+        return `${this.usermainData?.keyData.lipidCount || 0} g`
     }
 }

@@ -1,6 +1,6 @@
 import { Payload } from 'recharts/types/component/DefaultTooltipContent'
 import styled from 'styled-components'
-// import { colors } from '../../utils/colors'
+
 const BackgroundColor = styled.div`
     background-color: white;
 `
@@ -8,6 +8,7 @@ const Value = styled.p`
     padding: 7px;
     text-align: center;
     font-weight: 600;
+    font-size: 12px;
 `
 
 function CustomTooltip(props: {

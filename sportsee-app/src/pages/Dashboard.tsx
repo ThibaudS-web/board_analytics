@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -18,6 +17,8 @@ import Linechart from '../components/linechart/Linechart'
 import Radarchart from '../components/radarchart'
 import Radialbarchart from '../components/Radialbarchart'
 
+import NutrientCount from '../components/nutrients/NutrientScore'
+
 const ProfilWrapper = styled.div`
     margin: 70px 0 0 220px;
 `
@@ -35,13 +36,24 @@ const ChartWrapper = styled.div`
     width: 75%;
     display: flex;
     flex-wrap: wrap;
-    border: 2px red solid;
 `
 
 const ChartWrapperSmallGraphs = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+`
+const NutrientCountWrapper = styled.div`
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+    justify-content: space-between;
+`
+const UserStatSection = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 `
 
 function Dashboard() {
@@ -62,8 +74,7 @@ function Dashboard() {
     useEffect(() => {
         async function fetchUserMainData() {
             try {
-                let data: UserMainData
-                data = await fetchData.getUserMainData()
+                const data: UserMainData = await fetchData.getUserMainData()
                 setUserMainData(data)
             } catch (err) {
                 console.log(err)
@@ -72,8 +83,9 @@ function Dashboard() {
 
         async function fetchUserPerformance() {
             try {
-                let data: UserPerformanceAPI
-                data = await fetchData.getUserPerformance()
+                const data: UserPerformanceAPI =
+                    await fetchData.getUserPerformance()
+
                 const userPerformance = new UserPerformanceWrapper(
                     mapper.mapAPI(data)
                 )
@@ -85,8 +97,7 @@ function Dashboard() {
 
         async function fetchUserActivity() {
             try {
-                let data: UserActivity
-                data = await fetchData.getUserActivity()
+                const data: UserActivity = await fetchData.getUserActivity()
                 setUserActivity(data)
                 setActivityLoaded(true)
             } catch (err) {
@@ -96,8 +107,8 @@ function Dashboard() {
 
         async function fetchUserAverageSession() {
             try {
-                let data: UserAverageSessions
-                data = await fetchData.getUserAverageSession()
+                const data: UserAverageSessions =
+                    await fetchData.getUserAverageSession()
                 setUserAverageSession(data)
             } catch (err) {
                 console.log(err)
@@ -113,7 +124,7 @@ function Dashboard() {
     //Wrapping component for use ours computed properties
     const sessionWrappers =
         userActivity?.sessions?.map((item) => {
-            let wrapper = new SessionActivityWrapper(item)
+            const wrapper = new SessionActivityWrapper(item)
             return wrapper
         }) ?? []
 
@@ -123,8 +134,6 @@ function Dashboard() {
         ) ?? []
 
     const mainDataWrapper = new UserMainDataWrapper(userMainData)
-
-    
 
     return (
         <>
@@ -136,15 +145,42 @@ function Dashboard() {
                 <Congrat>
                     Félicitation ! Vous avez explosé vos objectifs hier 👏
                 </Congrat>
-
-                <ChartWrapper>
-                    {activityLoaded && <Barchart sessions={sessionWrappers} />}
-                    <ChartWrapperSmallGraphs>
-                        <Linechart sessionsAverage={sessionAverageWrapper} />
-                        <Radarchart performance={userPerformanceData ?? []} />
-                        <Radialbarchart score={mainDataWrapper.getPercentage()} />
-                    </ChartWrapperSmallGraphs>
-                </ChartWrapper>
+                <UserStatSection>
+                    <ChartWrapper>
+                        {activityLoaded && (
+                            <Barchart sessions={sessionWrappers} />
+                        )}
+                        <ChartWrapperSmallGraphs>
+                            <Linechart
+                                sessionsAverage={sessionAverageWrapper}
+                            />
+                            <Radarchart
+                                performance={userPerformanceData ?? []}
+                            />
+                            <Radialbarchart
+                                score={mainDataWrapper.getPercentage()}
+                            />
+                        </ChartWrapperSmallGraphs>
+                    </ChartWrapper>
+                    <NutrientCountWrapper>
+                        <NutrientCount
+                            type="calorie"
+                            count={mainDataWrapper.getKcalories()}
+                        />
+                        <NutrientCount
+                            type="protein"
+                            count={mainDataWrapper.getProteins()}
+                        />
+                        <NutrientCount
+                            type="carbohydrate"
+                            count={mainDataWrapper.getCarbohydrates()}
+                        />
+                        <NutrientCount
+                            type="lipid"
+                            count={mainDataWrapper.getLipids()}
+                        />
+                    </NutrientCountWrapper>
+                </UserStatSection>
             </ProfilWrapper>
         </>
     )

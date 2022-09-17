@@ -29,7 +29,6 @@ const ScoreWrapper = styled.div`
     position: absolute;
 `
 function Radialbarchart(props: { score: number | null }) {
-    console.log(props.score)
     const data = [
         {
             name: 'fullValue',
