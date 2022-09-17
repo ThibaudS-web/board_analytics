@@ -8,6 +8,7 @@ export const colors = {
     lipid: "#FD5181",
     radarchart_background: "#282D30",
     linechart_background: "#FF0000",
+    barchart_background: "#FBFBFB",
     barchart: {
         weight: "#282D30",
         calories_burned: "#E60000"

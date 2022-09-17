@@ -13,7 +13,7 @@ const HeaderWrapper = styled.header`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const Navigation = styled.nav`
-    width: 60%;
+    width: 70%;
     margin-left: 10%;
 `
 const ListLinks = styled.ul`

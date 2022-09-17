@@ -44,3 +44,15 @@ class KeyData {
         this.lipidCount = lipidCount
     }
 }
+
+export class UserMainDataWrapper {
+    private usermainData: UserMainData | null
+    constructor(usermainData: UserMainData | null) {
+        this.usermainData = usermainData
+    }
+
+    getPercentage() {
+        const score = this.usermainData?.todayScore ?? 0
+        return score * 100
+    }
+}
