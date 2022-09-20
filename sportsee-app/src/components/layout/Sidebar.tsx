@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Meditation from '../components/Icons/Meditation'
-import Bike from '../components/Icons/Bike'
-import Swim from '../components/Icons/Swim'
-import BodyBuilding from '../components/Icons/Bodybuilding'
+import Meditation from '../Icons/Meditation'
+import Bike from '../Icons/Bike'
+import Swim from '../Icons/Swim'
+import BodyBuilding from '../Icons/Bodybuilding'
 
 const SidebarWrapper = styled.div`
     height: 100vh;

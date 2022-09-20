@@ -52,23 +52,23 @@ export class UserMainDataWrapper {
     }
 
     getPercentage() {
-        const score = this.usermainData?.todayScore
+        const score = this.usermainData.todayScore
         return score * 100
     }
 
     getKcalories() {
-        return `${this.usermainData?.keyData?.calorieCount} Kcal`
+        return `${this.usermainData.keyData.calorieCount} Kcal`
     }
 
     getProteins() {
-        return `${this.usermainData?.keyData?.proteinCount} g`
+        return `${this.usermainData.keyData.proteinCount} g`
     }
 
     getCarbohydrates() {
-        return `${this.usermainData?.keyData?.carbohydrateCount} g`
+        return `${this.usermainData.keyData.carbohydrateCount} g`
     }
 
     getLipids() {
-        return `${this.usermainData?.keyData.lipidCount} g`
+        return `${this.usermainData.keyData.lipidCount} g`
     }
 }

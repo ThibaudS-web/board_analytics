@@ -190,19 +190,30 @@ function Dashboard() {
                     <NutrientCountWrapper>
                         <NutrientCount
                             type="calorie"
-                            count={mainDataWrapper?.getKcalories() ?? '0'}
+                            count={
+                                mainDataWrapper?.getKcalories() ??
+                                'Data not found'
+                            }
                         />
                         <NutrientCount
                             type="protein"
-                            count={mainDataWrapper?.getProteins() ?? '0'}
+                            count={
+                                mainDataWrapper?.getProteins() ??
+                                'Data not found'
+                            }
                         />
                         <NutrientCount
                             type="carbohydrate"
-                            count={mainDataWrapper?.getCarbohydrates() ?? '0'}
+                            count={
+                                mainDataWrapper?.getCarbohydrates() ??
+                                'Data not found'
+                            }
                         />
                         <NutrientCount
                             type="lipid"
-                            count={mainDataWrapper?.getLipids() ?? '0'}
+                            count={
+                                mainDataWrapper?.getLipids() ?? 'Data not found'
+                            }
                         />
                     </NutrientCountWrapper>
                 </UserStatSection>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Logo from '../components/Icons/Logo'
+import Logo from '../Icons/Logo'
 import { NavLink } from 'react-router-dom'
 
 const HeaderWrapper = styled.header`

@@ -59,12 +59,6 @@ const DotKcal = styled.div`
 `
 
 function ChartBar(props: { sessions: SessionActivityWrapper[] }) {
-    // ---> Ici tu dois uniquement afficher des trucs, il n'y a aucune raison que ton Composant ChartBar ait accès au model.
-    // Pour l'axe X, tu dois donner accès à une property de ton Wrapper (ici day)
-    // Sauf que "day" ne peut pas être un attribut parce que tu dois le calculer à partir de la date en String
-    // Comment se servir de dataKey sans attribut ?
-    // On utilise des computed property
-    // https://www.javascripttutorial.net/es6/javascript-computed-property/
     return (
         <BackgroundWrapper>
             <Header>
