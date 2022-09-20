@@ -3,16 +3,19 @@ export class UserMainData {
     userInfos: UserInfos
     todayScore: number
     keyData: KeyData
+    score: number
     constructor(
         id: number,
         userInfos: UserInfos,
         todayScore: number,
-        keyData: KeyData
+        keyData: KeyData,
+        score: number
     ) {
         this.id = id
         this.userInfos = userInfos
         this.todayScore = todayScore
         this.keyData = keyData
+        this.score = score
     }
 }
 
@@ -52,7 +55,14 @@ export class UserMainDataWrapper {
     }
 
     getPercentage() {
-        const score = this.usermainData.todayScore
+        let score: number
+
+        if (this.usermainData.todayScore) {
+            score = this.usermainData.todayScore
+        } else {
+            score = this.usermainData.score
+        }
+
         return score * 100
     }
 

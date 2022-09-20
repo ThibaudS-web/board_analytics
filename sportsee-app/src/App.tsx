@@ -28,7 +28,7 @@ function App() {
             <Layout>
                 <Routes>
                     <Route path="/" element={<Navigate to="/profil/12" />} />
-                    <Route path="/profil/:id" element={<Dashboard />} />
+                    <Route path="/profil/:userId" element={<Dashboard />} />
                     <Route
                         path="/parameters"
                         element={<Navigate to="/profil/12" />}

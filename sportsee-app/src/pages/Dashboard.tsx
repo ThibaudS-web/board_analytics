@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { UserPerformanceWrapper } from '../UI/wrappers/UserPerformanceWrapper'
@@ -11,7 +12,7 @@ import { UserAverageSessions } from '../models/UserAverageSession'
 import { PerformanceRadarCharData } from '../models/user-performance/UserPerformance'
 import { SessionTimeWrapper } from '../models/UserAverageSession'
 
-import fetchData from '../services/clientAPI'
+// import fetchData from '../services/FetcherDataMock'
 
 import Barchart from '../components/barchart/Barchart'
 import Linechart from '../components/linechart/Linechart'
@@ -19,6 +20,9 @@ import Radarchart from '../components/radarchart'
 import Radialbarchart from '../components/Radialbarchart'
 import NutrientCount from '../components/nutrients/NutrientScore'
 import { colors } from '../utils/colors'
+
+import { FetcherDataMock } from '../services/FetcherDataMock'
+import { FetcherDataApi } from '../services/FetcherDataApi'
 
 const ProfilWrapper = styled.div`
     margin: 70px 0 0 220px;
@@ -87,7 +91,19 @@ const ChartPerformanceWrapper = styled.div`
     ${genericStyleChartWrapper}
     min-width: '150px';
 `
+
+export interface ApiManager {
+    getUserMainData(userId: string): Promise<UserMainData>
+    getUserActivity(userId: string): Promise<UserActivity>
+    getUserPerformance(userId: string): Promise<UserPerformanceAPI>
+    getUserAverageSession(userId: string): Promise<UserAverageSessions>
+}
+
 function Dashboard() {
+    const { userId } = useParams()
+
+    const apiManager: ApiManager = new FetcherDataApi()
+
     const dataPerformanceMapper: DataPerformanceAPIMapper =
         new DataPerformanceAPIMapper()
     const mapper = new UserPerformanceAPIMapper(dataPerformanceMapper)
@@ -107,59 +123,43 @@ function Dashboard() {
         useState<UserAverageSessions | null>(null)
 
     useEffect(() => {
-        async function fetchUserMainData() {
-            try {
-                const data: UserMainData = await fetchData.getUserMainData()
+        apiManager
+            .getUserMainData(userId ?? '0')
+            .then((data) => {
                 setUserMainData(data)
                 setMainDataLoaded(true)
-            } catch (err) {
-                console.log(err)
-            }
-        }
+            })
+            .catch((err) => console.log(err))
 
-        async function fetchUserPerformance() {
-            try {
-                const data: UserPerformanceAPI =
-                    await fetchData.getUserPerformance()
+        apiManager
+            .getUserActivity(userId ?? '0')
+            .then((data) => {
+                setUserActivity(data)
+                setActivityLoaded(true)
+            })
+            .catch((err) => console.log(err))
 
+        apiManager
+            .getUserAverageSession(userId ?? '0')
+            .then((data) => {
+                setUserAverageSession(data)
+                setUserAverageSessionLoaded(true)
+            })
+            .catch((err) => console.log(err))
+
+        apiManager
+            .getUserPerformance(userId ?? '0')
+            .then((data) => {
                 const userPerformance = new UserPerformanceWrapper(
                     mapper.mapAPI(data)
                 )
                 setUserPerformanceData(userPerformance.getRadarChartData())
                 setUserPerformanceLoaded(true)
-            } catch (err) {
-                console.log(err)
-            }
-        }
+            })
+            .catch((err) => console.log(err))
+    }, [userId])
 
-        async function fetchUserActivity() {
-            try {
-                const data: UserActivity = await fetchData.getUserActivity()
-                setUserActivity(data)
-                setActivityLoaded(true)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-
-        async function fetchUserAverageSession() {
-            try {
-                const data: UserAverageSessions =
-                    await fetchData.getUserAverageSession()
-                setUserAverageSession(data)
-                setUserAverageSessionLoaded(true)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-
-        fetchUserMainData()
-        fetchUserPerformance()
-        fetchUserActivity()
-        fetchUserAverageSession()
-    }, [])
-
-    //Wrapping component for use ours computed properties
+    //Wrapping component for use computed properties
     const sessionWrappers =
         userActivity?.sessions?.map((item) => {
             const wrapper = new SessionActivityWrapper(item)
@@ -175,6 +175,7 @@ function Dashboard() {
         ? new UserMainDataWrapper(userMainData)
         : null
 
+    console.log(userId)
     return (
         <>
             <ProfilWrapper>

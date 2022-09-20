@@ -50,13 +50,14 @@ function Radialbarchart(props: { score: number | null; loaded: boolean }) {
             fill: 'red',
         },
     ]
+
     return (
         <ChartWrapper>
             {props.loaded ? (
                 <>
                     <ScoreLabel>Score</ScoreLabel>
                     <ScoreWrapper>
-                        <ScoreUser>12%</ScoreUser>
+                        <ScoreUser>{props.score}%</ScoreUser>
                         <Text>
                             de votre <br /> objectif
                         </Text>
