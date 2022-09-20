@@ -13,7 +13,7 @@ import { colors } from '../../utils/colors'
 import CustomTooltip from './CustomTooltip'
 import styled from 'styled-components'
 
-const BackgroundWrapper = styled.div`
+const ChartWrapper = styled.div`
     width: 100%;
     background-color: ${colors.barchart_background};
     height: 30vh;
@@ -58,9 +58,12 @@ const DotKcal = styled.div`
     background-color: ${colors.barchart.calories_burned};
 `
 
-function ChartBar(props: { sessions: SessionActivityWrapper[] }) {
+function ChartBar(props: {
+    sessions: SessionActivityWrapper[]
+    loaded: boolean
+}) {
     return (
-        <BackgroundWrapper>
+        <ChartWrapper>
             <Header>
                 <Title>Activité quotidienne</Title>
                 <Legend>
@@ -74,54 +77,58 @@ function ChartBar(props: { sessions: SessionActivityWrapper[] }) {
                     </Label>
                 </Legend>
             </Header>
-            <ResponsiveContainer width="100%" height="70%">
-                <BarChart data={props.sessions}>
-                    <CartesianGrid strokeDasharray="2 2" vertical={false} />
-                    <XAxis
-                        tick={{
-                            fontSize: '12px',
-                        }}
-                        tickLine={false}
-                        dataKey="day"
-                    />
-                    <YAxis
-                        tick={{
-                            fontSize: '12px',
-                        }}
-                        tickCount={3}
-                        axisLine={false}
-                        tickLine={false}
-                        orientation={'right'}
-                        yAxisId={1}
-                        dataKey={'kilogram'}
-                        domain={['dataMin - 5', 'auto']}
-                    />
-                    <YAxis
-                        hide
-                        yAxisId={2}
-                        dataKey={'calories'}
-                        domain={['dataMin - 100', 'dataMax + 100']}
-                    />
-                    <Tooltip offset={60} content={<CustomTooltip />} />
-                    <Bar
-                        unit={'kg'}
-                        yAxisId={1}
-                        radius={[10, 10, 0, 0]}
-                        barSize={7}
-                        dataKey="kilogram"
-                        fill={colors.barchart.weight}
-                    />
-                    <Bar
-                        unit={'Kcal'}
-                        yAxisId={2}
-                        radius={[10, 10, 0, 0]}
-                        barSize={7}
-                        dataKey="calories"
-                        fill={colors.barchart.calories_burned}
-                    />
-                </BarChart>
-            </ResponsiveContainer>
-        </BackgroundWrapper>
+            {props.loaded ? (
+                <ResponsiveContainer width="100%" height="70%">
+                    <BarChart data={props.sessions}>
+                        <CartesianGrid strokeDasharray="2 2" vertical={false} />
+                        <XAxis
+                            tick={{
+                                fontSize: '12px',
+                            }}
+                            tickLine={false}
+                            dataKey="day"
+                        />
+                        <YAxis
+                            tick={{
+                                fontSize: '12px',
+                            }}
+                            tickCount={3}
+                            axisLine={false}
+                            tickLine={false}
+                            orientation={'right'}
+                            yAxisId={1}
+                            dataKey={'kilogram'}
+                            domain={['dataMin - 5', 'auto']}
+                        />
+                        <YAxis
+                            hide
+                            yAxisId={2}
+                            dataKey={'calories'}
+                            domain={['dataMin - 100', 'dataMax + 100']}
+                        />
+                        <Tooltip offset={60} content={<CustomTooltip />} />
+                        <Bar
+                            unit={'kg'}
+                            yAxisId={1}
+                            radius={[10, 10, 0, 0]}
+                            barSize={7}
+                            dataKey="kilogram"
+                            fill={colors.barchart.weight}
+                        />
+                        <Bar
+                            unit={'Kcal'}
+                            yAxisId={2}
+                            radius={[10, 10, 0, 0]}
+                            barSize={7}
+                            dataKey="calories"
+                            fill={colors.barchart.calories_burned}
+                        />
+                    </BarChart>
+                </ResponsiveContainer>
+            ) : (
+                'loading'
+            )}
+        </ChartWrapper>
     )
 }
 

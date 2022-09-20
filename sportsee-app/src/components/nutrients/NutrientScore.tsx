@@ -3,14 +3,8 @@ import { colors } from '../../utils/colors'
 
 import CaloriesSvg from './CaloriesSvg'
 import CarbohydratesSvg from './CarbohydratesSvg'
-import LipidsSvg from './Lipids'
+import LipidsSvg from './LipidsSvg'
 import ProteinSvg from './ProteinsSvg'
-
-// const centerChild = {
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-// }
 
 const BackgroundWrapper = styled.div`
     display: flex;
@@ -19,6 +13,10 @@ const BackgroundWrapper = styled.div`
     height: 124px;
     background-color: ${colors.barchart_background};
     padding: 32px 0 32px 32px;
+    border-radius: 5px;
+    @media (max-width: 1200px), (max-height: 850px) {
+        padding: 25px 0 25px 15px;
+    }
 `
 
 function NutrientCount(props: { count: string; type: string }) {

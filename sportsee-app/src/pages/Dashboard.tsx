@@ -18,12 +18,20 @@ import Linechart from '../components/linechart/Linechart'
 import Radarchart from '../components/radarchart'
 import Radialbarchart from '../components/Radialbarchart'
 import NutrientCount from '../components/nutrients/NutrientScore'
+import { colors } from '../utils/colors'
 
 const ProfilWrapper = styled.div`
     margin: 70px 0 0 220px;
+    @media (max-width: 1200px), (max-height: 850px) {
+        margin-left: 100px;
+        margin-top: 20px;
+    }
 `
 const WelcomeUser = styled.h1`
     font-size: 48px;
+    @media (max-width: 1200px), (max-height: 850px) {
+        font-size: 32px;
+    }
 `
 const Username = styled.span`
     color: #ff0101;
@@ -31,8 +39,12 @@ const Username = styled.span`
 const Congrat = styled.p`
     font-weight: bold;
     margin-bottom: 70px;
+    @media (max-width: 1200px), (max-height: 850px) {
+        margin-bottom: 40px;
+    }
 `
-const ChartWrapper = styled.div`
+
+const ChartsWrapper = styled.div`
     width: 68%;
     display: flex;
     flex-wrap: wrap;
@@ -42,6 +54,10 @@ const ChartWrapperSmallGraphs = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 30px;
+    @media (max-width: 1200px), (max-height: 850px) {
+        gap: 10px;
+    }
 `
 const NutrientCountWrapper = styled.div`
     width: 21%;
@@ -55,6 +71,22 @@ const UserStatSection = styled.div`
     gap: 30px;
 `
 
+const genericStyleChartWrapper = {
+    backgroundColor: `${colors.primary}`,
+    borderRadius: '10px',
+    width: '100%',
+    minWidth: '150px',
+    height: '270px',
+}
+
+const ChartWrapper = styled.div`
+    ${genericStyleChartWrapper}
+`
+
+const ChartPerformanceWrapper = styled.div`
+    ${genericStyleChartWrapper}
+    min-width: '150px';
+`
 function Dashboard() {
     const dataPerformanceMapper: DataPerformanceAPIMapper =
         new DataPerformanceAPIMapper()
@@ -154,39 +186,34 @@ function Dashboard() {
                     Félicitation ! Vous avez explosé vos objectifs hier 👏
                 </Congrat>
                 <UserStatSection>
-                    <ChartWrapper>
-                        {activityLoaded ? (
-                            <Barchart sessions={sessionWrappers} />
-                        ) : (
-                            'Loading ...'
-                        )}
+                    <ChartsWrapper>
+                        <Barchart
+                            loaded={activityLoaded}
+                            sessions={sessionWrappers}
+                        />
                         <ChartWrapperSmallGraphs>
-                            {userAverageSessionLoaded ? (
+                            <ChartWrapper>
                                 <Linechart
+                                    loaded={userAverageSessionLoaded}
                                     sessionsAverage={sessionAverageWrapper}
                                 />
-                            ) : (
-                                'Loading ...'
-                            )}
-
-                            {userPerformanceLoaded ? (
+                            </ChartWrapper>
+                            <ChartPerformanceWrapper>
                                 <Radarchart
+                                    loaded={userPerformanceLoaded}
                                     performance={userPerformanceData ?? []}
                                 />
-                            ) : (
-                                'Loading ...'
-                            )}
-                            {mainDataLoaded ? (
+                            </ChartPerformanceWrapper>
+                            <ChartWrapper>
                                 <Radialbarchart
+                                    loaded={mainDataLoaded}
                                     score={
                                         mainDataWrapper?.getPercentage() ?? 0
                                     }
                                 />
-                            ) : (
-                                'Loading ...'
-                            )}
+                            </ChartWrapper>
                         </ChartWrapperSmallGraphs>
-                    </ChartWrapper>
+                    </ChartsWrapper>
                     <NutrientCountWrapper>
                         <NutrientCount
                             type="calorie"
