@@ -2,8 +2,9 @@ import UserActivity from '../models/user-activity/UserActivity'
 import UserMainData from '../models/user-main/UserMainData'
 import UserAverageSessions from '../models/user-average-session/UserAverageSessions'
 import UserPerformanceAPI from '../models/user-performance/UserPerformanceAPI'
-import { ApiManager } from '../pages/Dashboard'
+import ApiManager from './ApiManager'
 
+//====== URL DATA MOCK ======\\
 const mockUrlUserMainData = `/mock/userMainData.json`
 const mockUrlUserActivity = `/mock/userActivity.json`
 const mockUrlUserAverageSession = `/mock/userAverageSession.json`

@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 //============================= IMPORT DATA MODEL =============================\\
 import UserPerformanceWrapper from '../UI/wrappers/UserPerformanceWrapper'
-import UserPerformanceAPI from '../models/user-performance/UserPerformanceAPI'
 import DataPerformanceAPIMapper from '../UI/mappers/DataPerformanceAPIMapper'
 import UserPerformanceAPIMapper from '../UI/mappers/UserPerformanceAPIMapper'
 import UserMainData from '../models/user-main/UserMainData'
@@ -15,6 +14,7 @@ import UserActivity from '../models/user-activity/UserActivity'
 import UserAverageSessions from '../models/user-average-session/UserAverageSessions'
 import PerformanceRadarCharData from '../models/user-performance/PerformanceRadarCharData'
 import SessionTimeWrapper from '../UI/wrappers/SessionTimeWrapper'
+import ApiManager from '../services/ApiManager'
 
 //============================= IMPORT COMPONENTS =============================\\
 import Barchart from '../components/barchart/Barchart'
@@ -96,13 +96,6 @@ const ChartPerformanceWrapper = styled.div`
     ${genericStyleChartWrapper}
     min-width: '150px';
 `
-
-export interface ApiManager {
-    getUserMainData(userId: string): Promise<UserMainData>
-    getUserActivity(userId: string): Promise<UserActivity>
-    getUserPerformance(userId: string): Promise<UserPerformanceAPI>
-    getUserAverageSession(userId: string): Promise<UserAverageSessions>
-}
 
 function Dashboard() {
     const { userId } = useParams()

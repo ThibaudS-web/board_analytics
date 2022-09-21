@@ -1,11 +1,11 @@
-import { ApiResult } from '../models/api/ApiResult'
+import { useNavigate } from 'react-router-dom'
+
+import ApiResult from '../models/api/ApiResult'
 import UserPerformanceAPI from '../models/user-performance/UserPerformanceAPI'
 import UserActivity from '../models/user-activity/UserActivity'
 import UserAverageSessions from '../models/user-average-session/UserAverageSessions'
 import UserMainData from '../models/user-main/UserMainData'
-import { ApiManager } from '../pages/Dashboard'
-
-import { useNavigate } from 'react-router-dom'
+import ApiManager from './ApiManager'
 
 export class FetcherDataApi implements ApiManager {
     navigate = useNavigate()
