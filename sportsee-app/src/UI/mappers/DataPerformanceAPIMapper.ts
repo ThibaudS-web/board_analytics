@@ -1,10 +1,8 @@
-import {
-    DataPerformanceAPI,
-    DataPerformance,
-    Kind,
-} from '../../models/user-performance/UserPerformance'
+import Kind from '../../models/user-performance/Kind'
+import DataPerformanceAPI from '../../models/user-performance/DataPerformanceAPI'
+import DataPerformance from '../../models/user-performance/DataPerformanceLocal'
 
-export class DataPerformanceAPIMapper {
+class DataPerformanceAPIMapper {
     mapAPI(dataPerformanceApi: DataPerformanceAPI): DataPerformance {
         let enumKind: Kind
         switch (dataPerformanceApi.kind) {
@@ -34,3 +32,5 @@ export class DataPerformanceAPIMapper {
         return new DataPerformance(enumKind, dataPerformanceApi.value)
     }
 }
+
+export default DataPerformanceAPIMapper

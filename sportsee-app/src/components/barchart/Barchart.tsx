@@ -1,4 +1,4 @@
-import { SessionActivityWrapper } from '../../models/UserActivity'
+import SessionActivityWrapper from '../../UI/wrappers/SessionActivityWrapper'
 import {
     ResponsiveContainer,
     BarChart,
@@ -12,6 +12,7 @@ import { colors } from '../../utils/colors'
 
 import CustomTooltip from './CustomTooltip'
 import styled from 'styled-components'
+import Loader from '../Loader'
 
 const ChartWrapper = styled.div`
     width: 100%;
@@ -126,7 +127,9 @@ function ChartBar(props: {
                     </BarChart>
                 </ResponsiveContainer>
             ) : (
-                'loading'
+                <div style={{ alignSelf: 'center', marginBottom: '80px' }}>
+                    <Loader />
+                </div>
             )}
         </ChartWrapper>
     )

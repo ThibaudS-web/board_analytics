@@ -1,10 +1,8 @@
-import {
-    UserPerformance,
-    PerformanceRadarCharData,
-} from '../../models/user-performance/UserPerformance'
-import { DataPerformanceWrapper } from './DataPerformanceWrapper'
+import PerformanceRadarCharData from '../../models/user-performance/PerformanceRadarCharData'
+import UserPerformance from '../../models/user-performance/UserPerformanceLocal'
+import DataPerformanceWrapper from './DataPerformanceWrapper'
 
-export class UserPerformanceWrapper {
+class UserPerformanceWrapper {
     private userPerformance: UserPerformance
     dataPerformanceWrappers: DataPerformanceWrapper[]
     constructor(userPerformance: UserPerformance) {
@@ -23,3 +21,5 @@ export class UserPerformanceWrapper {
         })
     }
 }
+
+export default UserPerformanceWrapper

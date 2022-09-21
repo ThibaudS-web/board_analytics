@@ -1,10 +1,8 @@
-import { DataPerformanceAPIMapper } from './DataPerformanceAPIMapper'
-import {
-    UserPerformanceAPI,
-    UserPerformance,
-} from '../../models/user-performance/UserPerformance'
+import DataPerformanceAPIMapper from './DataPerformanceAPIMapper'
+import UserPerformanceAPI from '../../models/user-performance/UserPerformanceAPI'
+import UserPerformance from '../../models/user-performance/UserPerformanceLocal'
 
-export class UserPerformanceAPIMapper {
+class UserPerformanceAPIMapper {
     dataPerformanceApiMapper: DataPerformanceAPIMapper
 
     constructor(dataPerformanceApiMapper: DataPerformanceAPIMapper) {
@@ -20,3 +18,5 @@ export class UserPerformanceAPIMapper {
         )
     }
 }
+
+export default UserPerformanceAPIMapper

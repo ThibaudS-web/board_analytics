@@ -1,6 +1,7 @@
 import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts'
 import styled from 'styled-components'
 import { colors } from '../utils/colors'
+import Loader from './Loader'
 
 const ChartWrapper = styled.div`
     background-color: ${colors.barchart_background};
@@ -53,9 +54,9 @@ function Radialbarchart(props: { score: number | null; loaded: boolean }) {
 
     return (
         <ChartWrapper>
+            <ScoreLabel>Score</ScoreLabel>
             {props.loaded ? (
                 <>
-                    <ScoreLabel>Score</ScoreLabel>
                     <ScoreWrapper>
                         <ScoreUser>{props.score}%</ScoreUser>
                         <Text>
@@ -77,7 +78,7 @@ function Radialbarchart(props: { score: number | null; loaded: boolean }) {
                     </ResponsiveContainer>
                 </>
             ) : (
-                'loading'
+                <Loader />
             )}
         </ChartWrapper>
     )

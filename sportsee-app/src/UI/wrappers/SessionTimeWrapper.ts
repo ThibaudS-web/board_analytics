@@ -1,22 +1,6 @@
-export class UserAverageSessions {
-    userId: number
-    sessions: SessionTime[]
-    constructor(userId: number, sessions: SessionTime[]) {
-        this.userId = userId
-        this.sessions = sessions
-    }
-}
+import SessionTime from '../../models/user-average-session/SessionTime'
 
-export class SessionTime {
-    day: number
-    sessionLength: number
-    constructor(day: number, sessionLength: number) {
-        this.day = day
-        this.sessionLength = sessionLength
-    }
-}
-
-export class SessionTimeWrapper {
+class SessionTimeWrapper {
     private sessionTime: SessionTime
     constructor(sessionTime: SessionTime) {
         this.sessionTime = sessionTime
@@ -47,3 +31,5 @@ export class SessionTimeWrapper {
         }
     }
 }
+
+export default SessionTimeWrapper

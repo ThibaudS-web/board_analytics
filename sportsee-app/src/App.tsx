@@ -37,8 +37,8 @@ function App() {
                         path="/community"
                         element={<Navigate to="/profil/12" />}
                     />
-                    <Route path="/api-error" element={<ErrorAPI />} />
                     <Route path="*" element={<Error404 />} />
+                    <Route path="/error-server" element={<ErrorAPI />} />
                 </Routes>
             </Layout>
         </React.Fragment>

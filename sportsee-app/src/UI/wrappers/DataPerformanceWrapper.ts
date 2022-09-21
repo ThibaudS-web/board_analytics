@@ -1,6 +1,7 @@
-import { DataPerformance, Kind } from '../../models/user-performance/UserPerformance'
+import Kind from '../../models/user-performance/Kind'
+import DataPerformance from '../../models/user-performance/DataPerformanceLocal'
 
-export class DataPerformanceWrapper {
+class DataPerformanceWrapper {
     private dataPerformance: DataPerformance
     constructor(dataPerformance: DataPerformance) {
         this.dataPerformance = dataPerformance
@@ -29,3 +30,5 @@ export class DataPerformanceWrapper {
         return this.dataPerformance.value
     }
 }
+
+export default DataPerformanceWrapper

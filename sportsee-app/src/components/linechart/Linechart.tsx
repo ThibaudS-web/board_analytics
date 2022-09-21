@@ -8,26 +8,36 @@ import {
 } from 'recharts'
 import CustomTooltip from '../linechart/CustomTooltip'
 import styled from 'styled-components'
-import { SessionTimeWrapper } from '../../models/UserAverageSession'
+import SessionTimeWrapper from '../../UI/wrappers/SessionTimeWrapper'
 import { colors } from '../../utils/colors'
 import CustomDot from './Dot'
+import Loader from '../Loader'
 
 const ChartWrapper = styled.div`
     background-color: ${colors.linechart_background};
     border-radius: 5px;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 `
-const GraphLabel = styled.p`
+const GraphLabel = styled.p<IBtn>`
     color: white;
     opacity: 0.5;
     font-size: 16px;
     padding: 30px 0 0 30px;
     line-height: 24px;
+    align-self: flex-start;
+    margin-bottom: ${(props) => (props.loaded ? '0px' : '35px')};
     @media (max-width: 1200px), (max-height: 850px) {
         padding: 20px 0 0 15px;
     }
 `
+interface IBtn {
+    loaded: boolean
+}
+
 function Linechart(props: {
     sessionsAverage: SessionTimeWrapper[]
     loaded: boolean
@@ -35,7 +45,7 @@ function Linechart(props: {
     return (
         <>
             <ChartWrapper>
-                <GraphLabel>
+                <GraphLabel loaded={props.loaded}>
                     Durée moyenne des <br />
                     sessions
                 </GraphLabel>
@@ -72,7 +82,7 @@ function Linechart(props: {
                         </LineChart>
                     </ResponsiveContainer>
                 ) : (
-                    'loading'
+                    <Loader />
                 )}
             </ChartWrapper>
         </>

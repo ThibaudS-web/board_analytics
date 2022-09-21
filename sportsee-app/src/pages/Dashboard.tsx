@@ -1,28 +1,33 @@
+//============================= IMPORT LIBS =============================\\
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { UserPerformanceWrapper } from '../UI/wrappers/UserPerformanceWrapper'
-import { UserPerformanceAPI } from '../models/user-performance/UserPerformance'
-import { DataPerformanceAPIMapper } from '../UI/mappers/DataPerformanceAPIMapper'
-import { UserPerformanceAPIMapper } from '../UI/mappers/UserPerformanceAPIMapper'
-import { UserMainData, UserMainDataWrapper } from '../models/UserMainData'
-import { SessionActivityWrapper, UserActivity } from '../models/UserActivity'
-import { UserAverageSessions } from '../models/UserAverageSession'
-import { PerformanceRadarCharData } from '../models/user-performance/UserPerformance'
-import { SessionTimeWrapper } from '../models/UserAverageSession'
+//============================= IMPORT DATA MODEL =============================\\
+import UserPerformanceWrapper from '../UI/wrappers/UserPerformanceWrapper'
+import UserPerformanceAPI from '../models/user-performance/UserPerformanceAPI'
+import DataPerformanceAPIMapper from '../UI/mappers/DataPerformanceAPIMapper'
+import UserPerformanceAPIMapper from '../UI/mappers/UserPerformanceAPIMapper'
+import UserMainData from '../models/user-main/UserMainData'
+import UserMainDataWrapper from '../UI/wrappers/UserMainDataWrapper'
+import SessionActivityWrapper from '../UI/wrappers/SessionActivityWrapper'
+import UserActivity from '../models/user-activity/UserActivity'
+import UserAverageSessions from '../models/user-average-session/UserAverageSessions'
+import PerformanceRadarCharData from '../models/user-performance/PerformanceRadarCharData'
+import SessionTimeWrapper from '../UI/wrappers/SessionTimeWrapper'
 
-// import fetchData from '../services/FetcherDataMock'
-
+//============================= IMPORT COMPONENTS =============================\\
 import Barchart from '../components/barchart/Barchart'
 import Linechart from '../components/linechart/Linechart'
 import Radarchart from '../components/radarchart'
 import Radialbarchart from '../components/Radialbarchart'
 import NutrientCount from '../components/nutrients/NutrientScore'
-import { colors } from '../utils/colors'
 
-import { FetcherDataMock } from '../services/FetcherDataMock'
+//============================= IMPORT CALL MOCK / API =============================\\
+import FetcherDataMock from '../services/FetcherDataMock'
 import { FetcherDataApi } from '../services/FetcherDataApi'
+
+import { colors } from '../utils/colors'
 
 const ProfilWrapper = styled.div`
     margin: 70px 0 0 220px;
@@ -101,19 +106,32 @@ export interface ApiManager {
 
 function Dashboard() {
     const { userId } = useParams()
+    const navigate = useNavigate()
 
+    // For switch data Api to Mock, we have to remplace FetcherDataApi by FetcherDataMock
     const apiManager: ApiManager = new FetcherDataApi()
 
     const dataPerformanceMapper: DataPerformanceAPIMapper =
         new DataPerformanceAPIMapper()
     const mapper = new UserPerformanceAPIMapper(dataPerformanceMapper)
 
+    //Error States
+    const [error404, setError404] = useState(false)
+    const [activityErrorServer, setActivityErrorServer] = useState(false)
+    const [mainDataErrorServer, setMainDataErrorServer] = useState(false)
+    const [userPerformanceErrorServer, setUserPerformanceErrorServer] =
+        useState(false)
+    const [userAverageSessionErrorServer, setUserAverageSessionErrorServer] =
+        useState(false)
+
+    //Load States
     const [activityLoaded, setActivityLoaded] = useState(false)
     const [mainDataLoaded, setMainDataLoaded] = useState(false)
     const [userPerformanceLoaded, setUserPerformanceLoaded] = useState(false)
     const [userAverageSessionLoaded, setUserAverageSessionLoaded] =
         useState(false)
 
+    //Data States
     const [userMainData, setUserMainData] = useState<UserMainData | null>(null)
     const [userPerformanceData, setUserPerformanceData] = useState<
         PerformanceRadarCharData[] | null
@@ -129,7 +147,10 @@ function Dashboard() {
                 setUserMainData(data)
                 setMainDataLoaded(true)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setMainDataErrorServer(true)
+                console.log(err)
+            })
 
         apiManager
             .getUserActivity(userId ?? '0')
@@ -137,7 +158,10 @@ function Dashboard() {
                 setUserActivity(data)
                 setActivityLoaded(true)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setActivityErrorServer(true)
+                console.log(err)
+            })
 
         apiManager
             .getUserAverageSession(userId ?? '0')
@@ -145,7 +169,10 @@ function Dashboard() {
                 setUserAverageSession(data)
                 setUserAverageSessionLoaded(true)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setUserAverageSessionErrorServer(true)
+                console.log(err)
+            })
 
         apiManager
             .getUserPerformance(userId ?? '0')
@@ -156,8 +183,29 @@ function Dashboard() {
                 setUserPerformanceData(userPerformance.getRadarChartData())
                 setUserPerformanceLoaded(true)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setUserPerformanceErrorServer(true)
+                console.log(err)
+            })
     }, [userId])
+
+    if (userId !== userMainData?.id.toString() && userMainData?.id) {
+        setError404(true)
+    }
+
+    if (error404) {
+        navigate('/page-not-found', { replace: true })
+        console.log(error404)
+    }
+
+    if (
+        activityErrorServer &&
+        mainDataErrorServer &&
+        userPerformanceErrorServer &&
+        userAverageSessionErrorServer
+    ) {
+        navigate('/error-server', { replace: true })
+    }
 
     //Wrapping component for use computed properties
     const sessionWrappers =
@@ -175,13 +223,14 @@ function Dashboard() {
         ? new UserMainDataWrapper(userMainData)
         : null
 
-    console.log(userId)
     return (
         <>
             <ProfilWrapper>
                 <WelcomeUser>
                     Bonjour{' '}
-                    <Username>{userMainData?.userInfos.firstName}</Username>
+                    <Username>
+                        {userMainData?.userInfos.firstName ?? 'User not found'}
+                    </Username>
                 </WelcomeUser>
                 <Congrat>
                     Félicitation ! Vous avez explosé vos objectifs hier 👏

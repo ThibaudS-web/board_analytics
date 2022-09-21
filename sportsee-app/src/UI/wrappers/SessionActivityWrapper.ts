@@ -1,24 +1,6 @@
-export class UserActivity {
-    userId: number
-    sessions: SessionActivity[]
-    constructor(userId: number, sessions: SessionActivity[]) {
-        this.userId = userId
-        this.sessions = sessions
-    }
-}
+import SessionActivity from "../../models/user-activity/SessionActivity"
 
-class SessionActivity {
-    day: string
-    kilogram: number
-    calories: number
-    constructor(day: string, kilogram: number, calories: number) {
-        this.day = day
-        this.kilogram = kilogram
-        this.calories = calories
-    }
-}
-
-export class SessionActivityWrapper {
+class SessionActivityWrapper {
     private sessionActivity: SessionActivity
     constructor(sessionActivity: SessionActivity) {
         this.sessionActivity = sessionActivity
@@ -38,3 +20,5 @@ export class SessionActivityWrapper {
         return this.sessionActivity.calories /*Nom du champ*/
     }
 }
+
+export default SessionActivityWrapper

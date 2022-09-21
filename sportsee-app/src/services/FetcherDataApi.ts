@@ -1,11 +1,14 @@
 import { ApiResult } from '../models/api/ApiResult'
-import { UserPerformanceAPI } from '../models/user-performance/UserPerformance'
-import { UserActivity } from '../models/UserActivity'
-import { UserAverageSessions } from '../models/UserAverageSession'
-import { UserMainData } from '../models/UserMainData'
+import UserPerformanceAPI from '../models/user-performance/UserPerformanceAPI'
+import UserActivity from '../models/user-activity/UserActivity'
+import UserAverageSessions from '../models/user-average-session/UserAverageSessions'
+import UserMainData from '../models/user-main/UserMainData'
 import { ApiManager } from '../pages/Dashboard'
 
+import { useNavigate } from 'react-router-dom'
+
 export class FetcherDataApi implements ApiManager {
+    navigate = useNavigate()
     API_HOST = 'http://localhost:8000'
 
     async getUserMainData(userId: string): Promise<UserMainData> {
@@ -13,10 +16,9 @@ export class FetcherDataApi implements ApiManager {
         try {
             const result = await fetch(`${this.API_HOST}/user/${userId}`)
             data = ((await result.json()) as ApiResult<UserMainData>).data
-            console.log(data)
+            this.handleError(result)
             return data
         } catch (err) {
-            console.log('catch')
             throw new Error('Error API: ', err as Error)
         }
     }
@@ -28,6 +30,7 @@ export class FetcherDataApi implements ApiManager {
                 `${this.API_HOST}/user/${userId}/activity`
             )
             data = ((await result.json()) as ApiResult<UserActivity>).data
+            this.handleError(result)
             return data
         } catch (err) {
             console.log('catch')
@@ -42,6 +45,7 @@ export class FetcherDataApi implements ApiManager {
                 `${this.API_HOST}/user/${userId}/performance`
             )
             data = ((await result.json()) as ApiResult<UserPerformanceAPI>).data
+            this.handleError(result)
             return data
         } catch (err) {
             console.log('catch')
@@ -57,10 +61,17 @@ export class FetcherDataApi implements ApiManager {
             )
             data = ((await result.json()) as ApiResult<UserAverageSessions>)
                 .data
+            this.handleError(result)
             return data
         } catch (err) {
             console.log('catch')
             throw new Error('Error API: ', err as Error)
+        }
+    }
+
+    handleError(result: { status: number }) {
+        if (result.status === 404) {
+            this.navigate('/page-not-found', { replace: true })
         }
     }
 }
