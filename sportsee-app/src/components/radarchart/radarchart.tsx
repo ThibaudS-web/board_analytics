@@ -7,9 +7,9 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 import styled from 'styled-components'
-import PerformanceRadarCharData  from '../models/user-performance/PerformanceRadarCharData'
-import { colors } from '../utils/colors'
-import Loader from './Loader'
+import PerformanceRadarCharData  from '../../models/user-performance/PerformanceRadarCharData'
+import { colors } from '../../utils/colors'
+import Loader from '../Loader'
 
 const ChartWrapper = styled.div`
     background-color: ${colors.radarchart_background};

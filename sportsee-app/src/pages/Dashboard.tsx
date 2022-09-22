@@ -19,8 +19,8 @@ import ApiManager from '../services/ApiManager'
 //============================= IMPORT COMPONENTS =============================\\
 import Barchart from '../components/barchart/Barchart'
 import Linechart from '../components/linechart/Linechart'
-import Radarchart from '../components/radarchart'
-import Radialbarchart from '../components/Radialbarchart'
+import Radarchart from '../components/radarchart/radarchart'
+import Radialbarchart from '../components/radialbarchart/Radialbarchart'
 import NutrientCount from '../components/nutrients/NutrientScore'
 
 //============================= IMPORT CALL MOCK / API =============================\\
@@ -81,7 +81,6 @@ const UserStatSection = styled.div`
 `
 
 const genericStyleChartWrapper = {
-    backgroundColor: `${colors.primary}`,
     borderRadius: '10px',
     width: '100%',
     minWidth: '150px',
@@ -90,6 +89,12 @@ const genericStyleChartWrapper = {
 
 const ChartWrapper = styled.div`
     ${genericStyleChartWrapper}
+`
+const ChartRadialWrapper = styled.div`
+    ${genericStyleChartWrapper}
+    background-color: ${colors.barchart_background};
+    display: flex;
+    flex-direction: column;
 `
 
 const ChartPerformanceWrapper = styled.div`
@@ -247,14 +252,14 @@ function Dashboard() {
                                     performance={userPerformanceData ?? []}
                                 />
                             </ChartPerformanceWrapper>
-                            <ChartWrapper>
+                            <ChartRadialWrapper>
                                 <Radialbarchart
                                     loaded={mainDataLoaded}
                                     score={
                                         mainDataWrapper?.getPercentage() ?? 0
                                     }
                                 />
-                            </ChartWrapper>
+                            </ChartRadialWrapper>
                         </ChartWrapperSmallGraphs>
                     </ChartsWrapper>
                     <NutrientCountWrapper>

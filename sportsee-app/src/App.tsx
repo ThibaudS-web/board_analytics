@@ -5,8 +5,8 @@ import { createGlobalStyle } from 'styled-components'
 import 'normalize.css/normalize.css'
 
 import Dashboard from './pages/Dashboard'
-import Error404 from './components/error/Error404'
-import ErrorAPI from './components/error/ErrorAPI'
+import Error404 from './components/error/error-404/Error404'
+import ErrorAPI from './components/error/error-500/ErrorAPI'
 import Layout from './components/layout/Layout'
 
 const GlobalStyles = createGlobalStyle`
