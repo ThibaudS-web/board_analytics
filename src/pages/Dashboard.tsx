@@ -174,7 +174,6 @@ function Dashboard() {
                 const userPerformance = new UserPerformanceWrapper(
                     mapper.mapAPI(data)
                 )
-                console.log(userPerformance.getRadarChartData())
                 setUserPerformanceData(userPerformance.getRadarChartData())
                 setUserPerformanceLoaded(true)
             })
