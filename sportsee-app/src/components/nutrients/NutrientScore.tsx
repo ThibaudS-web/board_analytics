@@ -1,10 +1,15 @@
-import styled from 'styled-components'
+import styled, {
+    css,
+    DefaultTheme,
+    FlattenInterpolation,
+    ThemedCssFunction,
+} from 'styled-components'
 import { colors } from '../../utils/colors'
 
-import CaloriesSvg from './CaloriesSvg'
-import CarbohydratesSvg from './CarbohydratesSvg'
-import LipidsSvg from './LipidsSvg'
-import ProteinSvg from './ProteinsSvg'
+import CaloriesSvg from './ui/CaloriesSvg'
+import CarbohydratesSvg from './ui/CarbohydratesSvg'
+import LipidsSvg from './ui/LipidsSvg'
+import ProteinSvg from './ui/ProteinsSvg'
 
 const BackgroundWrapper = styled.div`
     display: flex;
@@ -17,6 +22,28 @@ const BackgroundWrapper = styled.div`
     @media (max-width: 1200px), (max-height: 850px) {
         padding: 25px 0 25px 15px;
     }
+`
+const MQFontSize: {
+    css: FlattenInterpolation<ThemedCssFunction<DefaultTheme>>
+} = {
+    css: css`
+        @media (max-width: 1200px), (max-height: 850px) {
+            font-size: 14px;
+        }
+    `,
+}
+
+const InformationWrapper = styled.div`
+    margin: 0 24px;
+`
+const Count = styled.p`
+    font-size: 20px;
+    margin-bottom: 5px;
+    ${MQFontSize.css}
+`
+const Label = styled.p`
+    color: #74798c;
+    ${MQFontSize.css}
 `
 
 function NutrientCount(props: { count: string; type: string }) {
@@ -39,12 +66,10 @@ function NutrientCount(props: { count: string; type: string }) {
     return (
         <BackgroundWrapper>
             {displaySVG()}
-            <div style={{ marginLeft: '24px' }}>
-                <p style={{ fontSize: '20px', marginBottom: '5px' }}>
-                    {props.count}
-                </p>
-                <p style={{ color: '#74798C' }}>Calories</p>
-            </div>
+            <InformationWrapper>
+                <Count>{props.count}</Count>
+                <Label>Calories</Label>
+            </InformationWrapper>
         </BackgroundWrapper>
     )
 }

@@ -1,6 +1,13 @@
 import Kind from '../../models/user-performance/Kind'
 import DataPerformance from '../../models/user-performance/DataPerformanceLocal'
 
+/**
+ * @description Wrapper classes format model fields into displayable data. This class only formats fields needed for UI. 
+ * This wrapping layer enables us to separate UI logic (wrapper class) from business logic (model class). 
+ * 
+ * This class has two methods, one to display the kind and one to display the value.
+ */
+
 class DataPerformanceWrapper {
     private dataPerformance: DataPerformance
     constructor(dataPerformance: DataPerformance) {

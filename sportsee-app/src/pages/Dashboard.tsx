@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { colors } from '../utils/colors'
 
 //============================= IMPORT DATA MODEL =============================\\
 import UserPerformanceWrapper from '../UI/wrappers/UserPerformanceWrapper'
@@ -27,7 +28,7 @@ import NutrientCount from '../components/nutrients/NutrientScore'
 import FetcherDataMock from '../services/FetcherDataMock'
 import { FetcherDataApi } from '../services/FetcherDataApi'
 
-import { colors } from '../utils/colors'
+
 
 const ProfilWrapper = styled.div`
     margin: 70px 0 0 220px;
@@ -52,13 +53,11 @@ const Congrat = styled.p`
         margin-bottom: 40px;
     }
 `
-
 const ChartsWrapper = styled.div`
     width: 68%;
     display: flex;
     flex-wrap: wrap;
 `
-
 const ChartWrapperSmallGraphs = styled.div`
     width: 100%;
     display: flex;
@@ -79,14 +78,12 @@ const UserStatSection = styled.div`
     width: 100%;
     gap: 30px;
 `
-
 const genericStyleChartWrapper = {
     borderRadius: '10px',
     width: '100%',
     minWidth: '150px',
     height: '270px',
 }
-
 const ChartWrapper = styled.div`
     ${genericStyleChartWrapper}
 `
@@ -96,7 +93,6 @@ const ChartRadialWrapper = styled.div`
     display: flex;
     flex-direction: column;
 `
-
 const ChartPerformanceWrapper = styled.div`
     ${genericStyleChartWrapper}
     min-width: '150px';
@@ -107,7 +103,7 @@ function Dashboard() {
     const navigate = useNavigate()
 
     // For switch data Api to Mock, we have to remplace FetcherDataApi by FetcherDataMock
-    const apiManager: ApiManager = new FetcherDataApi()
+    const apiManager: ApiManager = new FetcherDataMock()
 
     const dataPerformanceMapper: DataPerformanceAPIMapper =
         new DataPerformanceAPIMapper()
@@ -178,6 +174,7 @@ function Dashboard() {
                 const userPerformance = new UserPerformanceWrapper(
                     mapper.mapAPI(data)
                 )
+                console.log(userPerformance.getRadarChartData())
                 setUserPerformanceData(userPerformance.getRadarChartData())
                 setUserPerformanceLoaded(true)
             })

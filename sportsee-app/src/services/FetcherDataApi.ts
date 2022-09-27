@@ -7,6 +7,8 @@ import UserAverageSessions from '../models/user-average-session/UserAverageSessi
 import UserMainData from '../models/user-main/UserMainData'
 import ApiManager from './ApiManager'
 
+/** @description This class is used to retrieve all the API data necessary for the proper functioning of our application. */
+
 export class FetcherDataApi implements ApiManager {
     navigate = useNavigate()
     API_HOST = 'http://localhost:8000'

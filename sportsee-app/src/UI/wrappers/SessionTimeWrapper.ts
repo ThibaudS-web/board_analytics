@@ -1,5 +1,12 @@
 import SessionTime from '../../models/user-average-session/SessionTime'
 
+/**
+ * @description Wrapper classes format model fields into displayable data. This class only formats fields needed for UI. 
+ * This wrapping layer enables us to separate UI logic (wrapper class) from business logic (model class).
+ * 
+ * This class uses computed properties to be able to use the data with the recharts library.
+ */
+
 class SessionTimeWrapper {
     private sessionTime: SessionTime
     constructor(sessionTime: SessionTime) {

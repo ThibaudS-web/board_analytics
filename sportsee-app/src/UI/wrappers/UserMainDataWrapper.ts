@@ -1,4 +1,12 @@
-import UserMainData from "../../models/user-main/UserMainData"
+import UserMainData from '../../models/user-main/UserMainData'
+
+/**
+ * @description Wrapper classes format model fields into displayable data. This class only formats fields needed for UI.
+ * This wrapping layer enables us to separate UI logic (wrapper class) from business logic (model class).
+ * 
+ * This class takes the UserMainData object as an argument. 
+ * It displays the percentage relative to the user's score as well as the Kcal, proteins, carbohydrates, and lipids.
+ */
 
 class UserMainDataWrapper {
     private usermainData: UserMainData

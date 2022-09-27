@@ -1,3 +1,7 @@
+/**
+ * @description This object returns the gender (speed, strength, cardio, etc...) and the associated value.
+ */
+
 class PerformanceRadarCharData {
     label: string | null
     value: number

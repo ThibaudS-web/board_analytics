@@ -2,6 +2,13 @@ import PerformanceRadarCharData from '../../models/user-performance/PerformanceR
 import UserPerformance from '../../models/user-performance/UserPerformanceLocal'
 import DataPerformanceWrapper from './DataPerformanceWrapper'
 
+/**
+ * @description Wrapper classes format model fields into displayable data. This class only formats fields needed for UI.
+ * This wrapping layer enables us to separate UI logic (wrapper class) from business logic (model class).
+ * 
+ * This class makes it possible to display on the Radarchart the label of the Kind and his value.
+ */
+
 class UserPerformanceWrapper {
     private userPerformance: UserPerformance
     dataPerformanceWrappers: DataPerformanceWrapper[]

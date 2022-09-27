@@ -4,17 +4,18 @@ import UserAverageSessions from '../models/user-average-session/UserAverageSessi
 import UserPerformanceAPI from '../models/user-performance/UserPerformanceAPI'
 import ApiManager from './ApiManager'
 
-//====== URL DATA MOCK ======\\
-const mockUrlUserMainData = `/mock/userMainData.json`
-const mockUrlUserActivity = `/mock/userActivity.json`
-const mockUrlUserAverageSession = `/mock/userAverageSession.json`
-const mockUrlUserPerformance = `/mock/userPerformance.json`
+/** @description This class is used to retrieve all the mock data necessary for the proper functioning of our application. */
 
 class FetcherDataMock implements ApiManager {
+    mockUrlUserMainData = `/mock/userMainData.json`
+    mockUrlUserActivity = `/mock/userActivity.json`
+    mockUrlUserAverageSession = `/mock/userAverageSession.json`
+    mockUrlUserPerformance = `/mock/userPerformance.json`
+
     async getUserMainData(userId: string): Promise<UserMainData> {
         let data: UserMainData
         try {
-            const result = await fetch(mockUrlUserMainData)
+            const result = await fetch(this.mockUrlUserMainData)
             data = (await result.json()) as UserMainData
             return data
         } catch (err) {
@@ -26,7 +27,7 @@ class FetcherDataMock implements ApiManager {
     async getUserActivity(userId: string): Promise<UserActivity> {
         let data: UserActivity
         try {
-            const result = await fetch(mockUrlUserActivity)
+            const result = await fetch(this.mockUrlUserActivity)
             data = (await result.json()) as UserActivity
             return data
         } catch (err) {
@@ -38,7 +39,7 @@ class FetcherDataMock implements ApiManager {
     async getUserAverageSession(userId: string): Promise<UserAverageSessions> {
         let data: UserAverageSessions
         try {
-            const result = await fetch(mockUrlUserAverageSession)
+            const result = await fetch(this.mockUrlUserAverageSession)
             data = (await result.json()) as UserAverageSessions
             return data
         } catch (err) {
@@ -50,7 +51,7 @@ class FetcherDataMock implements ApiManager {
     async getUserPerformance(userId: string): Promise<UserPerformanceAPI> {
         let data: UserPerformanceAPI
         try {
-            const result = await fetch(mockUrlUserPerformance)
+            const result = await fetch(this.mockUrlUserPerformance)
             data = (await result.json()) as UserPerformanceAPI
             return data
         } catch (err) {
