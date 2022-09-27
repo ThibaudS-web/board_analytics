@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Logo from '../components/ui/Logo'
+import Logo from '../icons/Logo'
 import { NavLink } from 'react-router-dom'
 
 const HeaderWrapper = styled.header`
@@ -13,8 +13,8 @@ const HeaderWrapper = styled.header`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const Navigation = styled.nav`
-    width: 60%;
-    margin-left: 10%;
+    width: 70%;
+    margin: 0 10%;
 `
 const ListLinks = styled.ul`
     list-style: none;

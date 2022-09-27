@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Meditation from '../components/ui/Meditation'
-import Bike from '../components/ui/Bike'
-import Swim from '../components/ui/Swim'
-import BodyBuilding from '../components/ui/Bodybuilding'
+import Meditation from '../icons/Meditation'
+import Bike from '../icons/Bike'
+import Swim from '../icons/Swim'
+import BodyBuilding from '../icons/Bodybuilding'
 
 const SidebarWrapper = styled.div`
     height: 100vh;
@@ -15,14 +15,26 @@ const SidebarWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     z-index: -1;
+    @media (max-width: 1200px), (max-height: 850px) {
+        width: 80px;
+    }
 `
 const IconWrapper = styled.ul`
     list-style: none;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
     gap: 20px;
 `
+const IconItem = styled.li`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    @media (max-width: 1200px), (max-height: 850px) {
+        width: 70%;
+    }
+`
+
 const Copyright = styled.p`
     color: white;
     font-size: 12px;
@@ -32,6 +44,7 @@ const Copyright = styled.p`
     transform: rotate(180deg);
     align-self: center;
 `
+
 function Sidebar() {
     const iconsList = [<Meditation />, <Bike />, <Swim />, <BodyBuilding />]
 
@@ -39,7 +52,7 @@ function Sidebar() {
         <SidebarWrapper>
             <IconWrapper>
                 {iconsList.map((icon, index) => (
-                    <li key={index}>{icon}</li>
+                    <IconItem key={index}>{icon}</IconItem>
                 ))}
             </IconWrapper>
             <Copyright>

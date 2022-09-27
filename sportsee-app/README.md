@@ -1,43 +1,30 @@
-# Getting Started with Create React App
+# Presentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![sportsee](https://user-images.githubusercontent.com/66798720/192501060-5500ad54-84d7-46dc-a8de-427a6c4585d0.png)
 
-## Available Scripts
+## Project created with:
 
-In the project directory, you can run:
+[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
+![librairy-react](https://user-images.githubusercontent.com/66798720/192504809-c9103119-f809-4b46-a0da-9dafc020260f.svg)
+
+## Description
+
+Sportsee, an application that analyzes your sports and nutritional data. The application uses the Rechart library for graphics.
+
+## Installation and launching the frontend
+
+In the project directory, you must run:
+
+### `npm install`
 
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation and launching the backend
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Go to the page https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard
 
 ## Learn More
 
