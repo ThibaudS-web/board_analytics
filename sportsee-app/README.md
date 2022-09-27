@@ -4,7 +4,6 @@
 
 ## Project created with:
 
-[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
 ![librairy-react](https://user-images.githubusercontent.com/66798720/192504809-c9103119-f809-4b46-a0da-9dafc020260f.svg)
 
