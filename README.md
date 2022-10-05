@@ -7,6 +7,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
 ![librairy-react](https://user-images.githubusercontent.com/66798720/192504809-c9103119-f809-4b46-a0da-9dafc020260f.svg)
 
+Node version : v14.15.0
+
 ## Description
 
 Sportsee, an application that analyzes your sports and nutritional data. The application uses the Rechart library for graphics.
