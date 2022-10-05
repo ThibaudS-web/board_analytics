@@ -6,6 +6,7 @@ import {
     Line,
     ResponsiveContainer,
 } from 'recharts'
+
 import CustomTooltip from '../linechart/CustomTooltip'
 import styled from 'styled-components'
 import SessionTimeWrapper from '../../UI/wrappers/SessionTimeWrapper'

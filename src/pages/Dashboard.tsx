@@ -28,8 +28,6 @@ import NutrientCount from '../components/nutrients/NutrientScore'
 import FetcherDataMock from '../services/FetcherDataMock'
 import { FetcherDataApi } from '../services/FetcherDataApi'
 
-
-
 const ProfilWrapper = styled.div`
     margin: 70px 0 0 220px;
     @media (max-width: 1200px), (max-height: 850px) {
@@ -111,6 +109,7 @@ function Dashboard() {
 
     //Error States
     const [error404, setError404] = useState(false)
+
     const [activityErrorServer, setActivityErrorServer] = useState(false)
     const [mainDataErrorServer, setMainDataErrorServer] = useState(false)
     const [userPerformanceErrorServer, setUserPerformanceErrorServer] =
@@ -192,6 +191,7 @@ function Dashboard() {
         console.log(error404)
     }
 
+    //When all the roads are faulty then we return an error 500
     if (
         activityErrorServer &&
         mainDataErrorServer &&
